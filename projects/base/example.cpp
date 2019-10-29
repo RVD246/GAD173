@@ -20,8 +20,21 @@ bool Example::start()
 	sf::Vector2u resolution = m_backgroundSprite->getTexture()->getSize();
 	m_backgroundSprite->setScale(float(m_window.getSize().x) / resolution.x, float(m_window.getSize().y) / resolution.y);
 	thegrid.grid(m_window);
-	BrickClass* brick = kage::World::build<BrickClass>();
-	brick->setposition(sf::Vector2f(0, 0));
+	//BrickClass* brick = kage::World::build<BrickClass>();
+	//brick->setposition(sf::Vector2f(0, 0));
+	BrickClass* bricks[304];
+	int x = 16;
+	int y = 20;
+	int k = 0;
+	for (int i = 0; i < y; i++)
+	{
+		for (int j = 0; j < x; j++)
+		{
+			bricks[k] = kage::World::build<BrickClass>();
+			bricks[k]->setposition(sf::Vector2f(160*j,54*i));
+			k++;
+		}
+	}
 	return true;
 }
 
