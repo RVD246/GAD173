@@ -10,7 +10,7 @@ void BrickClass::setposition(sf::Vector2f pos)
 	m_position = pos;
 }
 
-void BrickClass::setsprite(const std::string &filename)
+void BrickClass::setsprite(std::string &filename)
 {
 	m_sprite = kage::TextureManager::getSprite(filename);
 }

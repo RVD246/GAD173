@@ -16,6 +16,7 @@ Example &Example::inst()
 
 bool Example::start()
 {
+	spritename = "data/brik.png";
 	m_backgroundSprite = kage::TextureManager::getSprite("data/sky.jpg");
 	sf::Vector2u resolution = m_backgroundSprite->getTexture()->getSize();
 	m_backgroundSprite->setScale(float(m_window.getSize().x) / resolution.x, float(m_window.getSize().y) / resolution.y);
@@ -52,7 +53,7 @@ void Example::update(float deltaT)
 			yPos = (int)mousebyspriteY;
 			ReplaceNo = xPos + (yPos * 16);
 
-			bricks[ReplaceNo]->setsprite("data/brik.png");
+			bricks[ReplaceNo]->setsprite(spritename);
 		}
 	}
 
@@ -69,6 +70,14 @@ void Example::update(float deltaT)
 	if (ImGui::Button("Load"))
 	{
 
+	}
+	if (ImGui::Button("Add Tile"))
+	{
+		spritename = "data/brik.png";
+	}
+	if (ImGui::Button("Remove Tile"))
+	{
+		spritename = "data/transparentbrik.png";
 	}
 	if (ImGui::Button("Reset"))
 	{

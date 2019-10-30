@@ -31,4 +31,5 @@ public:
 	float mouseY;
 	float mousebyspriteX;
 	float mousebyspriteY;
+	std::string spritename;
 };
