@@ -5,6 +5,7 @@
 #include <GridMake.h>
 #include <BrickClass.h>
 
+
 class Example : public App
 {
 public:
@@ -19,7 +20,14 @@ public:
 	std::vector<sf::RectangleShape> Horizontallines;
 	std::vector<sf::RectangleShape> Verticallines;
 	int Verticalgap;
-	int Horizontalgap;
+	int Horizontalgap;	
+	int ReplaceNo;
+	int xPos;
+	int yPos;
 	GridMake thegrid;
-	BrickClass* brick;
+	BrickClass* bricks[320];
+	float mouseX;
+	float mouseY;
+	float mousebyspriteX;
+	float mousebyspriteY;
 };

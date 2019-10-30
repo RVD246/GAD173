@@ -22,7 +22,7 @@ bool Example::start()
 	thegrid.grid(m_window);
 	//BrickClass* brick = kage::World::build<BrickClass>();
 	//brick->setposition(sf::Vector2f(0, 0));
-	BrickClass* bricks[304];
+	//BrickClass* bricks[304];
 	int x = 16;
 	int y = 20;
 	int k = 0;
@@ -31,7 +31,7 @@ bool Example::start()
 		for (int j = 0; j < x; j++)
 		{
 			bricks[k] = kage::World::build<BrickClass>();
-			bricks[k]->setposition(sf::Vector2f(160*j,54*i));
+			bricks[k]->setposition(sf::Vector2f(160 * j, 54 * i));
 			k++;
 		}
 	}
@@ -40,6 +40,19 @@ bool Example::start()
 
 void Example::update(float deltaT)
 {
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		mouseX = sf::Mouse::getPosition(m_window).x;
+		mouseY = sf::Mouse::getPosition(m_window).y;
+		mousebyspriteX = mouseX / 160;
+		mousebyspriteY = mouseY / 54;
+		xPos = (int)mousebyspriteX;
+		yPos = (int)mousebyspriteY;
+		ReplaceNo = xPos + (yPos * 16);
+
+		bricks[ReplaceNo]->setsprite("data/brik.png");
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && m_window.hasFocus())
 	{
 		m_running = false;
@@ -56,13 +69,23 @@ void Example::update(float deltaT)
 	}
 	if (ImGui::Button("Reset"))
 	{
-
+		int x = 16;
+		int y = 20;
+		int k = 0;
+		for (int i = 0; i < y; i++)
+		{
+			for (int j = 0; j < x; j++)
+			{
+				bricks[k]->reset();
+				k++;
+			}
+		}
 	}
 	if (ImGui::Button("Exit"))
 	{
 		m_running = false;
 	}
-	ImGui::End();
+	ImGui::End();	
 }
 
 void Example::render()
