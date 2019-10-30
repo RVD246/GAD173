@@ -12,6 +12,7 @@ public:
 	Example();
 	virtual ~Example();
 	virtual bool start();
+	bool hovergui;
 	virtual void update(float deltaT);
 	virtual void render();
 	virtual void cleanup();

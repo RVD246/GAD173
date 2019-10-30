@@ -40,24 +40,27 @@ bool Example::start()
 
 void Example::update(float deltaT)
 {
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	if (!hovergui)
 	{
-		mouseX = sf::Mouse::getPosition(m_window).x;
-		mouseY = sf::Mouse::getPosition(m_window).y;
-		mousebyspriteX = mouseX / 160;
-		mousebyspriteY = mouseY / 54;
-		xPos = (int)mousebyspriteX;
-		yPos = (int)mousebyspriteY;
-		ReplaceNo = xPos + (yPos * 16);
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			mouseX = sf::Mouse::getPosition(m_window).x;
+			mouseY = sf::Mouse::getPosition(m_window).y;
+			mousebyspriteX = mouseX / 160;
+			mousebyspriteY = mouseY / 54;
+			xPos = (int)mousebyspriteX;
+			yPos = (int)mousebyspriteY;
+			ReplaceNo = xPos + (yPos * 16);
 
-		bricks[ReplaceNo]->setsprite("data/brik.png");
+			bricks[ReplaceNo]->setsprite("data/brik.png");
+		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && m_window.hasFocus())
 	{
 		m_running = false;
 	}
-
+	
 	ImGui::Begin("Menu");
 	if (ImGui::Button("Save"))
 	{
@@ -85,6 +88,12 @@ void Example::update(float deltaT)
 	{
 		m_running = false;
 	}
+	if (ImGui::IsMouseHoveringWindow())
+	{
+		hovergui = true;
+	}
+	else
+		hovergui = false;
 	ImGui::End();	
 }
 
