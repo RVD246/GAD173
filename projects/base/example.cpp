@@ -65,11 +65,72 @@ void Example::update(float deltaT)
 	ImGui::Begin("Menu");
 	if (ImGui::Button("Save"))
 	{
-		
+		std::ofstream map;
+		map.open("map.dat");
+		map << "[Map]" << std::endl; 
+		int x = 16;
+		int y = 20;
+		int k = 0;
+		for (int i = 0; i < y; i++)
+		{
+			for (int j = 0; j < x; j++)
+			{
+				if (bricks[k]->m_sprite->getTexture() == kage::TextureManager::getTexture("data/brik.png"))
+					map << "1";
+				else
+					if (bricks[k]->m_sprite->getTexture() == kage::TextureManager::getTexture("data/transparentbrik.png"))
+						map << " ";
+				k++;
+			}
+			map << std::endl;
+		}
 	}
 	if (ImGui::Button("Load"))
 	{
+		std::ifstream map("map.dat");
+		int x = 16;
+		int y = 20;
+		int k = 0;
+		int l = 0;
+		char id[320];
+		std::string sprite;
+		std::string line;
+		if (map.is_open())
+		{
+			while (getline(map, line))
+			{
+				for (int i = 0; i < line.length(); i++)
+				{
+					if (id[k] != 'M' || id[k] != 'a' || id[k] != 'p' || id[k] != '[' || id[k] != ']')
+					{
+						id[k] = line[i];
+					}
+					k++;
+				}
+			}
+		}
+		else
+			std::cout << "FILE DOES NOT EXIST!";
+		for (int i = 0; i < y; i++)
+		{
+			/*std::cout<< "[Map]" <<std::endl << id[i] << std::endl;*/
+			for (int j = 0; j < x; j++)
+			{
+				if (id[l] == '1')
+				{
+					sprite = "data/brik.png";
+					bricks[l]->setsprite(sprite);
+				}
+				else
+					if (id[l] == ' ')
 
+					{
+						sprite = "data/transparentbrik.png";
+						bricks[l]->setsprite(sprite);
+					}
+				l++;
+			}
+		}
 	}
 	if (ImGui::Button("Add Tile"))
 	{

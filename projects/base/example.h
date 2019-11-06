@@ -4,6 +4,7 @@
 #include<vector>
 #include <GridMake.h>
 #include <BrickClass.h>
+#include <fstream>
 
 
 class Example : public App
