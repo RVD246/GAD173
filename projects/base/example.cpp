@@ -33,6 +33,7 @@ bool Example::start()
 			k++;
 		}
 	}
+
 	return true;
 }
 
@@ -106,18 +107,18 @@ void Example::update(float deltaT)
 						{
 							ch = line.substr(i, 1);
 							if (ch == "1")
-								bricks[k]->m_sprite = kage::TextureManager::getSprite("data/brik.png");
+								bricks[k]->m_sprite->setTexture(*kage::TextureManager::getTexture("data/brik.png"));
 							else
 								if (ch == "0")
-									bricks[k]->m_sprite = kage::TextureManager::getSprite("data/transparentbrik.png");
+									bricks[k]->m_sprite->setTexture(*kage::TextureManager::getTexture("data/transparentbrik.png"));
 							k++;
 						}
 				}
 			}
+			tilemap.close();
 		}
 		else
 			std::cout << "FILE DOES NOT EXIST!";
-		tilemap.close();
 	}
 	if (ImGui::Button("Add Tile"))
 	{

@@ -17,6 +17,6 @@ void BrickClass::setsprite(std::string &filename)
 
 void BrickClass::reset()
 {
-	m_sprite = kage::TextureManager::getSprite("data/transparentbrik.png");
+	m_sprite->setTexture(*kage::TextureManager::getTexture("data/transparentbrik.png"));
 }
 
