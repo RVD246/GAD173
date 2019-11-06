@@ -23,13 +23,10 @@ bool Example::start()
 	thegrid.grid(m_window);
 	//BrickClass* brick = kage::World::build<BrickClass>();
 	//brick->setposition(sf::Vector2f(0, 0));
-	//BrickClass* bricks[304];
-	int x = 16;
-	int y = 20;
 	int k = 0;
-	for (int i = 0; i < y; i++)
+	for (int i = 0; i < cellsy; i++)
 	{
-		for (int j = 0; j < x; j++)
+		for (int j = 0; j < cellsx; j++)
 		{
 			bricks[k] = kage::World::build<BrickClass>();
 			bricks[k]->setposition(sf::Vector2f(160 * j, 54 * i));
@@ -41,19 +38,22 @@ bool Example::start()
 
 void Example::update(float deltaT)
 {
-	if (!hovergui)
+	if (m_window.hasFocus())
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		if (!hovergui)
 		{
-			mouseX = sf::Mouse::getPosition(m_window).x;
-			mouseY = sf::Mouse::getPosition(m_window).y;
-			mousebyspriteX = mouseX / 160;
-			mousebyspriteY = mouseY / 54;
-			xPos = (int)mousebyspriteX;
-			yPos = (int)mousebyspriteY;
-			ReplaceNo = xPos + (yPos * 16);
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				mouseX = sf::Mouse::getPosition(m_window).x;
+				mouseY = sf::Mouse::getPosition(m_window).y;
+				mousebyspriteX = mouseX / 160;
+				mousebyspriteY = mouseY / 54;
+				xPos = (int)mousebyspriteX;
+				yPos = (int)mousebyspriteY;
+				ReplaceNo = xPos + (yPos * cellsx);
 
-			bricks[ReplaceNo]->setsprite(spritename);
+				bricks[ReplaceNo]->setsprite(spritename);
+			}
 		}
 	}
 
@@ -65,72 +65,59 @@ void Example::update(float deltaT)
 	ImGui::Begin("Menu");
 	if (ImGui::Button("Save"))
 	{
-		std::ofstream map;
-		map.open("map.dat");
-		map << "[Map]" << std::endl; 
-		int x = 16;
-		int y = 20;
+		std::ofstream tilemap;
+		tilemap.open("map.dat");
+		tilemap << "[Map]" << std::endl; 
 		int k = 0;
-		for (int i = 0; i < y; i++)
+		for (int i = 0; i < cellsy; i++)
 		{
-			for (int j = 0; j < x; j++)
+			for (int j = 0; j < cellsx; j++)
 			{
 				if (bricks[k]->m_sprite->getTexture() == kage::TextureManager::getTexture("data/brik.png"))
-					map << "1";
+					tilemap << '1';
 				else
 					if (bricks[k]->m_sprite->getTexture() == kage::TextureManager::getTexture("data/transparentbrik.png"))
-						map << " ";
+						tilemap << '0';
 				k++;
 			}
-			map << std::endl;
+			tilemap << std::endl;
 		}
 	}
 	if (ImGui::Button("Load"))
 	{
-		std::ifstream map("map.dat");
-		int x = 16;
-		int y = 20;
-		int k = 0;
-		int l = 0;
-		char id[320];
-		std::string sprite;
+		bool ismap;
 		std::string line;
-		if (map.is_open())
+		std::string ch;
+		std::ifstream tilemap("map.dat");
+		int k = 0;
+		if (tilemap.is_open())
 		{
-			while (getline(map, line))
+			while (getline(tilemap, line))
 			{
-				for (int i = 0; i < line.length(); i++)
+				if (line == "[Map]")
 				{
-					if (id[k] != 'M' || id[k] != 'a' || id[k] != 'p' || id[k] != '[' || id[k] != ']')
-					{
-						id[k] = line[i];
-					}
-					k++;
+					ismap = true;
+					continue;
+				}
+
+				if (ismap) 
+				{					
+						for (int i = 0; i < cellsx; i++)
+						{
+							ch = line.substr(i, 1);
+							if (ch == "1")
+								bricks[k]->m_sprite = kage::TextureManager::getSprite("data/brik.png");
+							else
+								if (ch == "0")
+									bricks[k]->m_sprite = kage::TextureManager::getSprite("data/transparentbrik.png");
+							k++;
+						}
 				}
 			}
 		}
 		else
 			std::cout << "FILE DOES NOT EXIST!";
-		for (int i = 0; i < y; i++)
-		{
-			/*std::cout<< "[Map]" <<std::endl << id[i] << std::endl;*/
-			for (int j = 0; j < x; j++)
-			{
-				if (id[l] == '1')
-				{
-					sprite = "data/brik.png";
-					bricks[l]->setsprite(sprite);
-				}
-				else
-					if (id[l] == ' ')
-
-					{
-						sprite = "data/transparentbrik.png";
-						bricks[l]->setsprite(sprite);
-					}
-				l++;
-			}
-		}
+		tilemap.close();
 	}
 	if (ImGui::Button("Add Tile"))
 	{
@@ -141,13 +128,11 @@ void Example::update(float deltaT)
 		spritename = "data/transparentbrik.png";
 	}
 	if (ImGui::Button("Reset"))
-	{
-		int x = 16;
-		int y = 20;
+	{		
 		int k = 0;
-		for (int i = 0; i < y; i++)
+		for (int i = 0; i < cellsy; i++)
 		{
-			for (int j = 0; j < x; j++)
+			for (int j = 0; j < cellsx; j++)
 			{
 				bricks[k]->reset();
 				k++;

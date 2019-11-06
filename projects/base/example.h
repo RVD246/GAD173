@@ -19,13 +19,13 @@ public:
 	virtual void cleanup();
 	static Example &inst();
 	sf::Sprite *m_backgroundSprite;
-	std::vector<sf::RectangleShape> Horizontallines;
-	std::vector<sf::RectangleShape> Verticallines;
 	int Verticalgap;
 	int Horizontalgap;	
 	int ReplaceNo;
 	int xPos;
-	int yPos;
+	int yPos; 
+	const int cellsx = 16;
+	const int cellsy = 20;
 	GridMake thegrid;
 	BrickClass* bricks[320];
 	float mouseX;
