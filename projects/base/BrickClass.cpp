@@ -19,4 +19,3 @@ void BrickClass::reset()
 {
 	m_sprite->setTexture(*kage::TextureManager::getTexture("data/transparentbrik.png"));
 }
-
