@@ -4,5 +4,5 @@ temp/
 *.ilk
 *.pdb
 bin/*.exe
-Projects/base_with_physics_test/
-Projects/enemy_sandbox/
+Projects/base_with_physics_test/*
+Projects/enemy_sandbox/*
