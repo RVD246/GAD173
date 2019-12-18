@@ -3,7 +3,8 @@
 
 #include "app.h"
 #include "kage2dutil/physics.h"
-#include "rabbit.h"
+#include "ball.h"
+#include <kage2dutil/gameobject.h>
 
 class Example : public App
 {
@@ -19,4 +20,8 @@ public:
 	const int cellsy = 20;
 	BrickClass* bricks[320];
 	sf::Sprite *m_backgroundSprite;
+	b2Vec2 direction;
+	float force;
+	Ball ball;
+
 };

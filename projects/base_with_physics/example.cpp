@@ -40,8 +40,6 @@ bool Example::start()
 		sf::Vector2u resolution = m_backgroundSprite->getTexture()->getSize();
 		m_backgroundSprite->setScale(float(m_window.getSize().x) / resolution.x, float(m_window.getSize().y) / resolution.y);
 
-
-
 		bool ismap;
 		std::string line;
 		std::string ch;
@@ -96,7 +94,7 @@ bool Example::start()
 			}
 		}
 	}
-		
+
 	return true;
 }
 
@@ -110,6 +108,7 @@ void Example::update(float deltaT)
 	{
 		m_running = false;
 	}
+
 
 	ImGui::Begin("Kage2D");
 	if(ImGui::Button("Exit"))
@@ -129,5 +128,5 @@ void Example::render()
 void Example::cleanup()
 {
 	delete m_backgroundSprite;
-}
+}	
 

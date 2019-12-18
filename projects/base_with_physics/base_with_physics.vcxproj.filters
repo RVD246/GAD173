@@ -27,10 +27,10 @@
     <ClCompile Include="example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Rabbit.cpp">
+    <ClCompile Include="BrickClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BrickClass.cpp">
+    <ClCompile Include="ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,10 +41,10 @@
     <ClInclude Include="example.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Rabbit.h">
+    <ClInclude Include="BrickClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BrickClass.h">
+    <ClInclude Include="ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
