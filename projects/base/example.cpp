@@ -21,8 +21,6 @@ bool Example::start()
 	sf::Vector2u resolution = m_backgroundSprite->getTexture()->getSize();
 	m_backgroundSprite->setScale(float(m_window.getSize().x) / resolution.x, float(m_window.getSize().y) / resolution.y);
 	thegrid.grid(m_window);
-	//BrickClass* brick = kage::World::build<BrickClass>();
-	//brick->setposition(sf::Vector2f(0, 0));
 	int k = 0;
 	for (int i = 0; i < cellsy; i++)
 	{

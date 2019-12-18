@@ -47,15 +47,15 @@ void Ball::update(float deltaT)
 
 }
 
-void Ball::onCollision(GameObject* obj)
-{
-
-}
-
 void Ball::onCollision(b2Fixture* fix)
 {
 	if (m_sprite->getPosition().x < 35 || m_sprite->getPosition().x > 1875)
 		moveX = moveX * -1;
 	else
 		moveY = moveY * -1;
+}
+
+void Ball::onCollision(GameObject* obj)
+{
+
 }
